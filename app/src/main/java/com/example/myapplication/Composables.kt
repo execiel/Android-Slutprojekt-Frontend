@@ -1,7 +1,7 @@
 package com.example.myapplication
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -25,7 +25,22 @@ fun CompInput(value: String, setValue: (String) -> Unit, label: String) {
 
 @Composable
 fun CompTitle(text: String) {
-    Text(modifier = Modifier.padding(15.dp), text = text, fontSize = 18.sp)
+    Text(modifier = Modifier.padding(15.dp), text = text, fontSize = 22.sp)
+}
+
+@Composable
+fun CompPost(title: String, content: String) {
+    val paddingModifier = Modifier.padding(10.dp)
+    Card(
+        shape = RoundedCornerShape(10.dp),
+        elevation = 10.dp,
+        modifier = Modifier.padding(5.dp ).width(300.dp)
+    ) {
+        Column() {
+            Text(text = title, modifier = paddingModifier, fontSize = 18.sp)
+            Text(text = content, modifier = paddingModifier)
+        }
+    }
 }
 
 @Composable

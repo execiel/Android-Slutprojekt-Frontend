@@ -1,6 +1,7 @@
 package com.example.myapplication.networking
 
 import com.example.myapplication.networking.objects.LoginResult
+import com.example.myapplication.networking.objects.PostResult
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Headers
@@ -18,4 +19,7 @@ interface ApiInterface {
 
     @POST("addPost")
     fun addPost(@Body body: Map<String, String>): Call<Void>
+
+    @POST("getHome")
+    fun getHome(@Body body: Map<String, String>): Call<PostResult>
 }
