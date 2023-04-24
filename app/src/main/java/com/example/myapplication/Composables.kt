@@ -24,6 +24,11 @@ fun CompInput(value: String, setValue: (String) -> Unit, label: String) {
 }
 
 @Composable
+fun CompTitle(text: String) {
+    Text(modifier = Modifier.padding(15.dp), text = text, fontSize = 18.sp)
+}
+
+@Composable
 fun CompLink(onClick: () -> Unit) {
     Text(
         modifier = Modifier

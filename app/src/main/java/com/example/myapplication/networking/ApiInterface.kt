@@ -15,4 +15,7 @@ interface ApiInterface {
 
     @POST("loginUser")
     fun loginUser(@Body body: Map<String, String>): Call<LoginResult>
+
+    @POST("addPost")
+    fun addPost(@Body body: Map<String, String>): Call<Void>
 }
