@@ -84,7 +84,7 @@ fun attemptLogin(
     // Send information to backend
     val body = mapOf("username" to username, "password" to password)
 
-
+    // Make call to api
     apiInterface.loginUser(body).enqueue(object : Callback<LoginResult> {
         override fun onFailure(call: Call<LoginResult>, t: Throwable) {
             setError("Can't connect to server")
