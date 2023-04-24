@@ -12,18 +12,19 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import com.example.myapplication.BottomNavItem
 
-
-fun test() {
-    println("Hej")
-}
-
 @Composable
-fun BottomBar(selectedItem: String) {
+fun BottomBar(
+    selectedItem: String,
+    navigateHome: () -> Unit,
+    navigateWrite: () -> Unit,
+    navigateSearch: () -> Unit,
+    navigateSettings: () -> Unit
+) {
     val items = listOf(
-        BottomNavItem("Home", { test() }, Icons.Filled.Home),
-        BottomNavItem("Write", { test() }, Icons.Filled.Add),
-        BottomNavItem("Search", { test() }, Icons.Filled.Search),
-        BottomNavItem("Settings", { test() }, Icons.Filled.Settings),
+        BottomNavItem("Home", { navigateHome() }, Icons.Filled.Home),
+        BottomNavItem("Write", { navigateWrite() }, Icons.Filled.Add),
+        BottomNavItem("Search", { navigateSearch() }, Icons.Filled.Search),
+        BottomNavItem("Settings", { navigateSettings() }, Icons.Filled.Settings),
     )
 
     BottomNavigation(
@@ -31,7 +32,7 @@ fun BottomBar(selectedItem: String) {
         items.forEach { item ->
             BottomNavigationItem(
                 selected = (selectedItem == item.name),
-                onClick = { item.onClick },
+                onClick = { item.onClick() },
                 icon = {
                     Icon(
                         item.icon,

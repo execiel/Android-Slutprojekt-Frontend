@@ -14,9 +14,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.networking.ApiInterface
-import com.example.myapplication.screens.HomeScreen
-import com.example.myapplication.screens.LoginScreen
-import com.example.myapplication.screens.RegisterScreen
+import com.example.myapplication.screens.*
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -84,8 +82,40 @@ fun MainNavigationHost(
             )
         }
         composable("home") {
-            HomeScreen(tokenText.value)
+            HomeScreen(
+                tokenText.value,
+                {navController.navigate("home")},
+                {navController.navigate("write")},
+                {navController.navigate("search")},
+                {navController.navigate("settings")}
+            )
+        }
+        composable("write") {
+            WriteScreen(
+                tokenText.value,
+                {navController.navigate("home")},
+                {navController.navigate("write")},
+                {navController.navigate("search")},
+                {navController.navigate("settings")}
+            )
+        }
+        composable("search") {
+            SearchScreen(
+                tokenText.value,
+                {navController.navigate("home")},
+                {navController.navigate("write")},
+                {navController.navigate("search")},
+                {navController.navigate("settings")}
+            )
+        }
+        composable("settings") {
+            SettingsScreen(
+                tokenText.value,
+                {navController.navigate("home")},
+                {navController.navigate("write")},
+                {navController.navigate("search")},
+                {navController.navigate("settings")}
+            )
         }
     }
-
 }
