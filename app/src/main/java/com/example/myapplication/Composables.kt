@@ -37,7 +37,11 @@ fun CompTitle(text: String) {
 fun CompUserPost(
     token: String,
     post: PostItem,
-    setPosts: (List<PostItem>) -> Unit
+    setPosts: (List<PostItem>) -> Unit,
+    setShowPopup: (Boolean) -> Unit,
+    setPopupTitle: (String) -> Unit,
+    setPopupContent: (String) -> Unit,
+    setCurrentId: (String) -> Unit,
 ) {
     val paddingModifier = Modifier.padding(10.dp)
     Card(
@@ -54,7 +58,12 @@ fun CompUserPost(
                 IconButton(onClick = { deletePost(token, post.id, setPosts) }) {
                     Icon(Icons.Filled.Delete, contentDescription = "favorite")
                 }
-                IconButton(onClick = {println("Hej")}) {
+                IconButton(onClick = {
+                    setShowPopup(true);
+                    setPopupTitle(post.title);
+                    setPopupContent(post.content);
+                    setCurrentId(post.id);
+                }) {
                     Icon(Icons.Filled.Edit, contentDescription = "favorite")
                 }
             }
