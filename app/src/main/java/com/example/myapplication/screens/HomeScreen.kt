@@ -2,15 +2,14 @@ package com.example.myapplication.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.example.myapplication.CompPost
 import com.example.myapplication.CompTitle
+import com.example.myapplication.CompUserPost
 import com.example.myapplication.apiInterface
 import com.example.myapplication.networking.objects.PostItem
 import com.example.myapplication.networking.objects.PostResult
@@ -28,7 +27,7 @@ fun HomeScreen(
     ) {
 
     val (posts, setPosts) = remember {
-        mutableStateOf(listOf(PostItem(title = "You haven't taken any notes", content = "")));
+        mutableStateOf(listOf(PostItem(title = "You haven't taken any notes", content = "", id = "w")));
     }
 
     getPosts(token, setPosts);
@@ -44,11 +43,11 @@ fun HomeScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 item {
-                    CompTitle("Your posts!");
+                    CompTitle("Your notes!");
                 }
                 posts.forEach { post ->
                     item {
-                        CompPost(post.title, post.content)
+                        CompUserPost(post.title, post.title, setTest("hej"), setTest("då"))
                     }
                 }
             }
@@ -65,11 +64,6 @@ fun getPosts(token: String, setPosts: (List<PostItem>) -> Unit) {
         }
         override fun onResponse(call: Call<PostResult>, response: Response<PostResult>) {
             val res = response.body() ?: return;
-
-            for(post in res.posts) {
-                System.out.println(post.title)
-                System.out.println(post.content)
-            }
 
             setPosts(res.posts)
         }

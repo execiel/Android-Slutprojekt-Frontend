@@ -3,9 +3,7 @@ package com.example.myapplication.networking
 import com.example.myapplication.networking.objects.LoginResult
 import com.example.myapplication.networking.objects.PostResult
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 
 interface ApiInterface {
@@ -22,4 +20,7 @@ interface ApiInterface {
 
     @POST("getHome")
     fun getHome(@Body body: Map<String, String>): Call<PostResult>
+
+    @HTTP(method = "DELETE", path = "getHome", hasBody = true)
+    fun deletePost(@Body body: Map<String, String>): Call<Void>
 }

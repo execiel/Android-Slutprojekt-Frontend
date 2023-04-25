@@ -4,6 +4,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -29,12 +32,44 @@ fun CompTitle(text: String) {
 }
 
 @Composable
+fun CompUserPost(
+    title: String,
+    content: String,
+    editPost: Unit,
+    deletePost: Unit
+) {
+    val paddingModifier = Modifier.padding(10.dp)
+    Card(
+        shape = RoundedCornerShape(10.dp),
+        elevation = 10.dp,
+        modifier = Modifier
+            .padding(5.dp)
+            .width(300.dp)
+    ) {
+        Column() {
+            Text(text = title, modifier = paddingModifier, fontSize = 18.sp)
+            Text(text = content, modifier = paddingModifier)
+            Row() {
+                IconButton(onClick = {editPost}) {
+                    Icon(Icons.Filled.Delete, contentDescription = "favorite")
+                }
+                IconButton(onClick = {deletePost}) {
+                    Icon(Icons.Filled.Edit, contentDescription = "favorite")
+                }
+            }
+        }
+    }
+}
+
+@Composable
 fun CompPost(title: String, content: String) {
     val paddingModifier = Modifier.padding(10.dp)
     Card(
         shape = RoundedCornerShape(10.dp),
         elevation = 10.dp,
-        modifier = Modifier.padding(5.dp ).width(300.dp)
+        modifier = Modifier
+            .padding(5.dp)
+            .width(300.dp)
     ) {
         Column() {
             Text(text = title, modifier = paddingModifier, fontSize = 18.sp)
