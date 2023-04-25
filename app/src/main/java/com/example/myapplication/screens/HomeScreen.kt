@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import com.example.myapplication.CompTitle
 import com.example.myapplication.CompUserPost
 import com.example.myapplication.apiInterface
+import com.example.myapplication.networking.deletePost
 import com.example.myapplication.networking.objects.PostItem
 import com.example.myapplication.networking.objects.PostResult
 import retrofit2.Call
@@ -47,7 +48,7 @@ fun HomeScreen(
                 }
                 posts.forEach { post ->
                     item {
-                        CompUserPost(post.title, post.title, setTest("hej"), setTest("då"))
+                        CompUserPost(token, post, setPosts)
                     }
                 }
             }

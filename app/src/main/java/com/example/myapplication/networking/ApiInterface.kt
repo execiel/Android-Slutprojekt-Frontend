@@ -21,6 +21,6 @@ interface ApiInterface {
     @POST("getHome")
     fun getHome(@Body body: Map<String, String>): Call<PostResult>
 
-    @HTTP(method = "DELETE", path = "getHome", hasBody = true)
-    fun deletePost(@Body body: Map<String, String>): Call<Void>
+    @HTTP(method = "DELETE", path = "deletePost", hasBody = true)
+    fun deletePost(@Body body: Map<String, String>): Call<PostResult>
 }

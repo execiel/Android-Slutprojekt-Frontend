@@ -11,6 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.myapplication.networking.deletePost
+import com.example.myapplication.networking.objects.PostItem
 import com.example.myapplication.ui.theme.ErrorColor
 import com.example.myapplication.ui.theme.Purple500
 
@@ -33,10 +35,9 @@ fun CompTitle(text: String) {
 
 @Composable
 fun CompUserPost(
-    title: String,
-    content: String,
-    editPost: Unit,
-    deletePost: Unit
+    token: String,
+    post: PostItem,
+    setPosts: (List<PostItem>) -> Unit
 ) {
     val paddingModifier = Modifier.padding(10.dp)
     Card(
@@ -47,13 +48,13 @@ fun CompUserPost(
             .width(300.dp)
     ) {
         Column() {
-            Text(text = title, modifier = paddingModifier, fontSize = 18.sp)
-            Text(text = content, modifier = paddingModifier)
+            Text(text = post.title, modifier = paddingModifier, fontSize = 18.sp)
+            Text(text = post.content, modifier = paddingModifier)
             Row() {
-                IconButton(onClick = {editPost}) {
+                IconButton(onClick = { deletePost(token, post.id, setPosts) }) {
                     Icon(Icons.Filled.Delete, contentDescription = "favorite")
                 }
-                IconButton(onClick = {deletePost}) {
+                IconButton(onClick = {println("Hej")}) {
                     Icon(Icons.Filled.Edit, contentDescription = "favorite")
                 }
             }
