@@ -16,6 +16,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.networking.ApiInterface
 import com.example.myapplication.screens.*
 import com.example.myapplication.ui.theme.MyApplicationTheme
+import errorError.myapplication.screens.SettingsScreen
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -111,10 +112,12 @@ fun MainNavigationHost(
         composable("settings") {
             SettingsScreen(
                 tokenText.value,
+                store,
                 {navController.navigate("home")},
                 {navController.navigate("write")},
                 {navController.navigate("search")},
-                {navController.navigate("settings")}
+                {navController.navigate("settings")},
+                {navController.navigate("login")}
             )
         }
     }

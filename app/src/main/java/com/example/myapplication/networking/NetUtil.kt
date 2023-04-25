@@ -21,6 +21,31 @@ fun deletePost(token: String, id: String, setPosts: (List<PostItem>) -> Unit) {
         }
     } )
 }
+
+fun deleteUser(token: String, password: String, setError: (String) -> Unit, navigateLogin: () -> Unit) {
+    val body = mapOf("token" to token, "password" to password)
+
+    if(password == "") {
+        setError("Password field is empty")
+        return;
+    }
+
+    apiInterface.deleteUser(body).enqueue( object : Callback<Void> {
+        override fun onFailure(call: Call<Void>, t: Throwable) {
+            println("Something went very wrong")
+        }
+        override fun onResponse(call: Call<Void>, response: Response<Void>) {
+            println(response.code())
+            if(response.code() == 200) {
+                navigateLogin()
+                return
+            }
+
+            setError("Wrong password")
+        }
+    } )
+}
+
 fun editPost(
     token: String,
     id: String,

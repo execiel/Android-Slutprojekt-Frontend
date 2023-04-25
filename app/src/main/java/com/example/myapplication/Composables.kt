@@ -3,12 +3,15 @@ package com.example.myapplication
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.networking.deletePost
@@ -19,6 +22,19 @@ import com.example.myapplication.ui.theme.Purple500
 @Composable
 fun CompInput(value: String, setValue: (String) -> Unit, label: String) {
     OutlinedTextField(shape = RoundedCornerShape(10.dp), value = value, onValueChange = setValue, label = { Text(label) })
+}
+
+@Composable
+fun CompInputPassword(value: String, setValue: (String) -> Unit, label: String) {
+    OutlinedTextField(
+        modifier = Modifier.requiredWidth(300.dp).requiredHeight(50.dp),
+        shape = RoundedCornerShape(10.dp),
+        value = value,
+        onValueChange = setValue,
+        label = { Text(label) },
+        visualTransformation = PasswordVisualTransformation(),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+    )
 }
 
 @Composable
