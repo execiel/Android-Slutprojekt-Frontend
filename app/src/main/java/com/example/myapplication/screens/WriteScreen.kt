@@ -58,8 +58,9 @@ fun WriteScreen(
                 OutlinedTextField(
                     shape = RoundedCornerShape(10.dp),
                     modifier = Modifier
-                        .height(200.dp)
-                        .padding(15.dp),
+                        .padding(15.dp)
+                        .requiredWidth(300.dp)
+                        .requiredHeight(200.dp),
                     value = content,
                     onValueChange = setContent
                 )

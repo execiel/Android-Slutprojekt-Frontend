@@ -50,7 +50,7 @@ fun SettingsScreen(
                 CompInputPassword(value = password, setValue = setPassword, label = "password")
                 CompButton(
                     onClick = {
-                              deleteUser(token, password, setError, navigateLogin)
+                              deleteUser(store, token, password, setError, navigateLogin)
                     },
                     label = "Remove account"
                 )

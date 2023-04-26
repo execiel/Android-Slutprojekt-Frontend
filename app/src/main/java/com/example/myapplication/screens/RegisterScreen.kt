@@ -39,8 +39,8 @@ fun RegisterScreen(navigateLoginScreen: () -> Unit) {
     ) {
         CompError(error)
         CompInput(value = username, setValue = setUsername, label = "username")
-        CompInput(value = password, setValue = setPassword, label = "password")
-        CompInput(value = verifyPassword, setValue = setVerifyPassword, label = "verify password")
+        CompInputPassword(value = password, setValue = setPassword, label = "password")
+        CompInputPassword(value = verifyPassword, setValue = setVerifyPassword, label = "verify password")
         CompButton(
             onClick = {
                         attemptRegister(password, verifyPassword, username, navigateLoginScreen, setError)

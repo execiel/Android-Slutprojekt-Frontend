@@ -55,7 +55,7 @@ fun LoginScreen(navigateRegisterScreen: () -> Unit, store: UserStore, navigateHo
         )
         CompError(text = error)
         CompInput(value = username, setValue = setUsername, label = "username")
-        CompInput(value = password, setValue = setPassword, label = "password")
+        CompInputPassword(value = password, setValue = setPassword, label = "password")
         CompButton(
             onClick = {
                 attemptLogin(

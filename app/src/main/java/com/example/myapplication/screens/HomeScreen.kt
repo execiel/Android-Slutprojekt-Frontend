@@ -81,7 +81,7 @@ fun HomeScreen(
                         Column(
                             modifier = Modifier
                                 .width(320.dp)
-                                .height(480.dp),
+                                .height(510.dp),
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Top
                         ) {
@@ -96,8 +96,9 @@ fun HomeScreen(
                             OutlinedTextField(
                                 shape = RoundedCornerShape(10.dp),
                                 modifier = Modifier
-                                    .height(200.dp)
-                                    .padding(15.dp),
+                                    .padding(15.dp)
+                                    .requiredWidth(300.dp)
+                                    .requiredHeight(200.dp),
                                 value = popupContent,
                                 onValueChange = setPopupContent
                             )

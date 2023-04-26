@@ -21,13 +21,19 @@ import com.example.myapplication.ui.theme.Purple500
 
 @Composable
 fun CompInput(value: String, setValue: (String) -> Unit, label: String) {
-    OutlinedTextField(shape = RoundedCornerShape(10.dp), value = value, onValueChange = setValue, label = { Text(label) })
+    OutlinedTextField(
+        modifier = Modifier.padding(10.dp).requiredWidth(300.dp).requiredHeight(65.dp),
+        shape = RoundedCornerShape(10.dp),
+        value = value,
+        onValueChange = setValue,
+        label = { Text(label) }
+    )
 }
 
 @Composable
 fun CompInputPassword(value: String, setValue: (String) -> Unit, label: String) {
     OutlinedTextField(
-        modifier = Modifier.requiredWidth(300.dp).requiredHeight(50.dp),
+        modifier = Modifier.padding(10.dp).requiredWidth(300.dp).requiredHeight(65.dp),
         shape = RoundedCornerShape(10.dp),
         value = value,
         onValueChange = setValue,
@@ -39,7 +45,11 @@ fun CompInputPassword(value: String, setValue: (String) -> Unit, label: String) 
 
 @Composable
  fun CompButton(onClick: () -> Unit, label: String) {
-    OutlinedButton(modifier = Modifier.padding(25.dp), shape = RoundedCornerShape(1000.dp), onClick = { onClick() }) {
+    OutlinedButton(
+        modifier = Modifier.padding(15.dp),
+        shape = RoundedCornerShape(1000.dp),
+        onClick = { onClick() }
+    ) {
         Text(text = label, fontSize = 15.sp)
     }
 }

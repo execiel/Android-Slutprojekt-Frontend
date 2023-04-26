@@ -1,8 +1,12 @@
 package com.example.myapplication.networking
 
+import com.example.myapplication.UserStore
 import com.example.myapplication.apiInterface
 import com.example.myapplication.networking.objects.PostItem
 import com.example.myapplication.networking.objects.PostResult
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,7 +26,7 @@ fun deletePost(token: String, id: String, setPosts: (List<PostItem>) -> Unit) {
     } )
 }
 
-fun deleteUser(token: String, password: String, setError: (String) -> Unit, navigateLogin: () -> Unit) {
+fun deleteUser(store: UserStore, token: String, password: String, setError: (String) -> Unit, navigateLogin: () -> Unit) {
     val body = mapOf("token" to token, "password" to password)
 
     if(password == "") {
@@ -38,6 +42,10 @@ fun deleteUser(token: String, password: String, setError: (String) -> Unit, navi
             println(response.code())
             if(response.code() == 200) {
                 navigateLogin()
+                // Remove token
+                CoroutineScope(Dispatchers.IO).launch {
+                    store.saveToken("")
+                }
                 return
             }
 
