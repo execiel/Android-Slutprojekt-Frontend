@@ -9,6 +9,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.example.myapplication.*
+import com.example.myapplication.networking.attemptRegister
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,43 +43,7 @@ fun RegisterScreen(navigateLoginScreen: () -> Unit) {
         CompInputPassword(value = password, setValue = setPassword, label = "password")
         CompInputPassword(value = verifyPassword, setValue = setVerifyPassword, label = "verify password")
         CompButton(
-            onClick = {
-                        attemptRegister(password, verifyPassword, username, navigateLoginScreen, setError)
-                      },
+            onClick = { attemptRegister(password, verifyPassword, username, navigateLoginScreen, setError) },
             label = "Register New User")
     }
-}
-
-// Verifies and tries to add user to database
-fun attemptRegister(
-    password: String,
-    verifyPassword: String,
-    username: String,
-    navigateLoginScreen: () -> Unit,
-    setError: (String) -> Unit
-) {
-    // Check if any field is empty
-    if(password == "" || verifyPassword == "" || username == "")
-        return setError("You need to fill out all fields")
-
-    // Check that passwords match
-    if(password != verifyPassword)
-        return setError("Passwords don't match")
-
-    // Send information to backend
-    val body = mapOf("username" to username, "password" to password)
-
-    apiInterface.registerUser(body).enqueue( object : Callback<Void> {
-           override fun onFailure(call: Call<Void>, t: Throwable) {
-               setError("Connection error")
-           }
-           override fun onResponse(call: Call<Void>, response: Response<Void>) {
-               if (response.code() == 200) {
-                   navigateLoginScreen()
-                   return
-               }
-               setError("User already exists");
-               return
-           }
-       } )
 }

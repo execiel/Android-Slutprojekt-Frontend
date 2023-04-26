@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplication.*
+import com.example.myapplication.networking.attemptLogin
 import com.example.myapplication.networking.objects.LoginResult
 import com.example.myapplication.ui.theme.Teal200
 import kotlinx.coroutines.CoroutineScope
@@ -70,43 +71,3 @@ fun LoginScreen(navigateRegisterScreen: () -> Unit, store: UserStore, navigateHo
     }
 }
 
-fun attemptLogin(
-    username: String,
-    password: String,
-    setError: (String) -> Unit,
-    store: UserStore,
-    navigateHomeScreen: () -> Unit
-) {
-    // Check if any field is empty
-    if(password == "" || username == "")
-        setError("You need to fill out all fields")
-
-    // Send information to backend
-    val body = mapOf("username" to username, "password" to password)
-
-    // Make call to api
-    apiInterface.loginUser(body).enqueue(object : Callback<LoginResult> {
-        override fun onFailure(call: Call<LoginResult>, t: Throwable) {
-            setError("Can't connect to server")
-        }
-        override fun onResponse(call: Call<LoginResult>, response: Response<LoginResult>) {
-            // Make sure response body isn't null
-            val res = response.body() ?: return;
-
-            // If connection worked but status is wrong
-            if (res.status != "ok") {
-                setError("Incorrect username or password")
-                return;
-            }
-
-            // Store token If everything went ok
-            CoroutineScope(Dispatchers.IO).launch {
-                store.saveToken(res.token.toString())
-            }
-
-            // Navigate to home screen
-            navigateHomeScreen()
-        }
-    } )
-
-}

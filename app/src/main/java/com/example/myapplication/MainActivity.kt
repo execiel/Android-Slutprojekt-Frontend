@@ -39,12 +39,9 @@ class MainActivity : ComponentActivity() {
 }
 
 
-// val client = OkHttpClient.Builder().build()
-
 val retrofit = Retrofit.Builder()
     .baseUrl("http://10.0.2.2:3000/api/")
     .addConverterFactory(GsonConverterFactory.create())
-    // .client(client)//
     .build()
 
 val apiInterface = retrofit.create(ApiInterface::class.java)
@@ -87,8 +84,7 @@ fun MainNavigationHost(
                 tokenText.value,
                 {navController.navigate("home")},
                 {navController.navigate("write")},
-                {navController.navigate("search")},
-                {navController.navigate("settings")}
+                {navController.navigate("settings")},
             )
         }
         composable("write") {
@@ -96,17 +92,7 @@ fun MainNavigationHost(
                 tokenText.value,
                 {navController.navigate("home")},
                 {navController.navigate("write")},
-                {navController.navigate("search")},
-                {navController.navigate("settings")}
-            )
-        }
-        composable("search") {
-            SearchScreen(
-                tokenText.value,
-                {navController.navigate("home")},
-                {navController.navigate("write")},
-                {navController.navigate("search")},
-                {navController.navigate("settings")}
+                {navController.navigate("settings")},
             )
         }
         composable("settings") {
@@ -115,9 +101,8 @@ fun MainNavigationHost(
                 store,
                 {navController.navigate("home")},
                 {navController.navigate("write")},
-                {navController.navigate("search")},
                 {navController.navigate("settings")},
-                {navController.navigate("login")}
+                {navController.navigate("login")},
             )
         }
     }

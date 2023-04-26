@@ -13,108 +13,55 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.myapplication.*
 import com.example.myapplication.networking.deletePost
 import com.example.myapplication.networking.editPost
+import com.example.myapplication.networking.getPosts
 import com.example.myapplication.networking.objects.PostItem
 import com.example.myapplication.networking.objects.PostResult
+import com.example.myapplication.viewmodels.PostsViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.IdentityHashMap
 
 @Composable
 fun HomeScreen(
     token: String,
     navigateHome: () -> Unit,
     navigateWrite: () -> Unit,
-    navigateSearch: () -> Unit,
     navigateSettings: () -> Unit,
     ) {
 
-    // TODO: Move to a view model?
-    val (posts, setPosts) = remember {
-        mutableStateOf(listOf(PostItem(title = "You haven't taken any notes", content = "", id = "w")));
-    }
+    // View model to handle posts
+    val postsViewModel = viewModel<PostsViewModel>();
+    val posts by postsViewModel.posts.collectAsState();
 
     // Popup state
     val (showPopup, setShowPopup) = remember {
         mutableStateOf(false);
     }
 
-    // popup title state
-    val (popupTitle, setPopupTitle) = remember {
-        mutableStateOf("");
+    val (currentPost, setCurrentPost) = remember {
+        mutableStateOf(PostItem("", "placeholder", "placeholder"))
     }
 
-    // popup title state
-    val (popupContent, setPopupContent) = remember {
-        mutableStateOf("");
-    }
-
-    // Stores current id for edit popup
-    val (currentId, setCurrentId) = remember {
-        mutableStateOf("");
-    }
-
-    // Stores current id for edit popup
-    val (error, setError) = remember {
-        mutableStateOf("");
-    }
-
-    getPosts(token, setPosts);
+    getPosts(token, postsViewModel);
 
     Scaffold(bottomBar = {
-        BottomBar("Home", navigateHome, navigateWrite, navigateSearch, navigateSettings)
+        BottomBar("Home", navigateHome, navigateWrite, navigateSettings)
     }) { contentPadding ->
         // Screen content
         Box(modifier = Modifier.padding(contentPadding)) {
             if (showPopup) {
-                Popup (
-                    alignment = Alignment.Center,
-                    onDismissRequest = { setShowPopup(false) },
-                    properties = PopupProperties(focusable = true, excludeFromSystemGesture = false)
-                ) {
-                    Card(
-                        shape = RoundedCornerShape(10.dp),
-                        elevation = 15.dp,
-                    ) {
-                        Column(
-                            modifier = Modifier
-                                .width(320.dp)
-                                .height(510.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.Top
-                        ) {
-                            Row( modifier = Modifier.fillMaxWidth()) {
-                                IconButton(onClick = { setShowPopup(false) }) {
-                                    Icon(Icons.Filled.Close, contentDescription = "favorite")
-                                }
-                            }
-                            CompTitle(text = "Edit post")
-                            CompError(error)
-                            CompInput(value = popupTitle, setValue = setPopupTitle, label = "Title")
-                            OutlinedTextField(
-                                shape = RoundedCornerShape(10.dp),
-                                modifier = Modifier
-                                    .padding(15.dp)
-                                    .requiredWidth(300.dp)
-                                    .requiredHeight(200.dp),
-                                value = popupContent,
-                                onValueChange = setPopupContent
-                            )
-                            CompButton(onClick = {
-                                editPost(
-                                    token,
-                                    currentId,
-                                    popupTitle,
-                                    popupContent,
-                                    setPosts,
-                                    setError
-                                );
-                                setShowPopup(false) }, label = "Submit changes!")
-                        }
-                    }
-                }
+                EditPopup(
+                    token,
+                    setShowPopup,
+                    currentPost,
+                    setCurrentPost,
+                    postsViewModel
+                )
             }
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
@@ -129,30 +76,13 @@ fun HomeScreen(
                         CompUserPost(
                             token,
                             post,
-                            setPosts,
+                            postsViewModel,
                             setShowPopup,
-                            setPopupTitle,
-                            setPopupContent,
-                            setCurrentId
+                            setCurrentPost,
                         )
                     }
                 }
             }
         }
     }
-}
-
-fun getPosts(token: String, setPosts: (List<PostItem>) -> Unit) {
-    val body = mapOf("token" to token)
-
-    apiInterface.getHome(body).enqueue( object : Callback<PostResult> {
-        override fun onFailure(call: Call<PostResult>, t: Throwable) {
-            println("Something went very wrong")
-        }
-        override fun onResponse(call: Call<PostResult>, response: Response<PostResult>) {
-            val res = response.body() ?: return;
-
-            setPosts(res.posts)
-        }
-    } )
 }

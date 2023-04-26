@@ -24,7 +24,6 @@ fun WriteScreen(
     navigateHome: () -> Unit,
     navigateWrite: () -> Unit,
     navigateSearch: () -> Unit,
-    navigateSettings: () -> Unit
 ) {
 
     // Title state
@@ -43,7 +42,7 @@ fun WriteScreen(
     }
 
     Scaffold(bottomBar = {
-        BottomBar("Write", navigateHome, navigateWrite, navigateSearch, navigateSettings)
+        BottomBar("Write", navigateHome, navigateWrite, navigateSearch)
     }) { contentPadding ->
         // Screen content
         Box(modifier = Modifier.padding(contentPadding)) {

@@ -7,7 +7,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import com.example.myapplication.BottomNavItem
@@ -17,13 +16,11 @@ fun BottomBar(
     selectedItem: String,
     navigateHome: () -> Unit,
     navigateWrite: () -> Unit,
-    navigateSearch: () -> Unit,
     navigateSettings: () -> Unit
 ) {
     val items = listOf(
         BottomNavItem("Home", { navigateHome() }, Icons.Filled.Home),
         BottomNavItem("Write", { navigateWrite() }, Icons.Filled.Add),
-        BottomNavItem("Search", { navigateSearch() }, Icons.Filled.Search),
         BottomNavItem("Settings", { navigateSettings() }, Icons.Filled.Settings),
     )
 

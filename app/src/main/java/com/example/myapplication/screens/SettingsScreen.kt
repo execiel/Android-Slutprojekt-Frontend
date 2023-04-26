@@ -22,7 +22,6 @@ fun SettingsScreen(
     store: UserStore,
     navigateHome: () -> Unit,
     navigateWrite: () -> Unit,
-    navigateSearch: () -> Unit,
     navigateSettings: () -> Unit,
     navigateLogin: () -> Unit
 ) {
@@ -36,7 +35,7 @@ fun SettingsScreen(
     }
 
     Scaffold(bottomBar = {
-        BottomBar("Settings", navigateHome, navigateWrite, navigateSearch, navigateSettings)
+        BottomBar("Settings", navigateHome, navigateWrite, navigateSettings)
     }) { contentPadding ->
         // Screen content
         Box(modifier = Modifier.padding(contentPadding)) {
