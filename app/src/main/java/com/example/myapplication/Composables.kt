@@ -23,8 +23,9 @@ import androidx.compose.ui.window.PopupProperties
 import com.example.myapplication.networking.deletePost
 import com.example.myapplication.networking.editPost
 import com.example.myapplication.networking.objects.PostItem
+import com.example.myapplication.ui.theme.Aqua500
 import com.example.myapplication.ui.theme.ErrorColor
-import com.example.myapplication.ui.theme.Purple500
+import com.example.myapplication.ui.theme.Peach200
 import com.example.myapplication.viewmodels.PostsViewModel
 
 @Composable
@@ -123,7 +124,7 @@ fun CompLink(onClick: () -> Unit) {
     Text(
         modifier = Modifier
             .clickable(true) { onClick() },
-        color = Purple500,
+        color = Aqua500,
         text = "Don't have and account? Register here!"
     )
 }

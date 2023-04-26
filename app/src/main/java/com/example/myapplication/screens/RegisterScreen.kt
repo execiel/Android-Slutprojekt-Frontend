@@ -38,6 +38,7 @@ fun RegisterScreen(navigateLoginScreen: () -> Unit) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        CompTitle("Register as user")
         CompError(error)
         CompInput(value = username, setValue = setUsername, label = "username")
         CompInputPassword(value = password, setValue = setPassword, label = "password")

@@ -17,7 +17,8 @@ import androidx.compose.ui.unit.sp
 import com.example.myapplication.*
 import com.example.myapplication.networking.attemptLogin
 import com.example.myapplication.networking.objects.LoginResult
-import com.example.myapplication.ui.theme.Teal200
+import com.example.myapplication.ui.theme.Green200
+import com.example.myapplication.ui.theme.Peach200
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -50,9 +51,12 @@ fun LoginScreen(navigateRegisterScreen: () -> Unit, store: UserStore, navigateHo
     ) {
         Text(
             modifier = Modifier.padding(25.dp),
-            text = "Blabbr",
+            text = "Notify",
             fontSize = 32.sp,
-            color = Teal200
+            color = Peach200
+        )
+        Text(
+            "Cloud based note-taking for android",
         )
         CompError(text = error)
         CompInput(value = username, setValue = setUsername, label = "username")

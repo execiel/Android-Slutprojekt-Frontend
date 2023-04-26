@@ -10,10 +10,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.myapplication.*
-import com.example.myapplication.networking.objects.LoginResult
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -51,9 +47,9 @@ fun WriteScreen(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                CompTitle("Write a new post")
+                CompTitle("Write a new note")
                 CompError(text = error)
-                CompInput(value = title, setValue = setTitle, label = "Title of your post")
+                CompInput(value = title, setValue = setTitle, label = "Title of your note")
                 OutlinedTextField(
                     shape = RoundedCornerShape(10.dp),
                     modifier = Modifier
@@ -67,7 +63,7 @@ fun WriteScreen(
                     onClick = {
                               sendPost(token, title, setTitle, content, setContent, setError)
                     },
-                    label = "Submit post!"
+                    label = "Submit!"
                 )
             }
         }

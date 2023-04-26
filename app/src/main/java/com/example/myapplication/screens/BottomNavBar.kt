@@ -1,5 +1,6 @@
 package com.example.myapplication.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
@@ -9,7 +10,9 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import com.example.myapplication.BottomNavItem
+import com.example.myapplication.ui.theme.Peach200
 
 @Composable
 fun BottomBar(
@@ -25,6 +28,7 @@ fun BottomBar(
     )
 
     BottomNavigation(
+        backgroundColor = Peach200
     ) {
         items.forEach { item ->
             BottomNavigationItem(
