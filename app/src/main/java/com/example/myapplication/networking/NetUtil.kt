@@ -1,7 +1,7 @@
 package com.example.myapplication.networking
 
+import apiInterface
 import com.example.myapplication.UserStore
-import com.example.myapplication.apiInterface
 import com.example.myapplication.networking.objects.LoginResult
 import com.example.myapplication.networking.objects.PostItem
 import com.example.myapplication.networking.objects.PostResult

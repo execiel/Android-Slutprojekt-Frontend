@@ -1,18 +1,17 @@
-package com.example.myapplication
-
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.myapplication.UserStore
 import com.example.myapplication.networking.ApiInterface
 import com.example.myapplication.screens.*
 import com.example.myapplication.ui.theme.MyApplicationTheme
@@ -54,56 +53,59 @@ fun MainNavigationHost(
 ) {
     val store = UserStore(LocalContext.current)
     val tokenText = store.getAccessToken.collectAsState(initial = "")
-    var startDestination: String = "login";
 
-    if(tokenText.value != "") {
-        startDestination = "home"
-        println("Changed start destination")
-    }
+    val (startDestination, setStartDestination) = remember {mutableStateOf("login")}
+
+    if(tokenText.value != "")
+        setStartDestination("home")
 
     NavHost(
         modifier = modifier,
         navController = navController,
         startDestination = startDestination
     ) {
-
         composable("login") {
             LoginScreen(
-                { navController.navigate("register") },
+                { navigateTo(navController, "login", setStartDestination)},
                 store,
-                { navController.navigate("home") }
+                { navigateTo(navController, "home", setStartDestination)},
             )
         }
         composable("register") {
             RegisterScreen(
-                {navController.navigate("login")}
+                { navigateTo(navController, "login", setStartDestination)},
             )
         }
         composable("home") {
             HomeScreen(
                 tokenText.value,
-                {navController.navigate("home")},
-                {navController.navigate("write")},
-                {navController.navigate("settings")},
+                { navigateTo(navController, "home", setStartDestination)},
+                { navigateTo(navController, "write", setStartDestination)},
+                { navigateTo(navController, "settings", setStartDestination)},
             )
         }
         composable("write") {
             WriteScreen(
                 tokenText.value,
-                {navController.navigate("home")},
-                {navController.navigate("write")},
-                {navController.navigate("settings")},
+                { navigateTo(navController, "home", setStartDestination)},
+                { navigateTo(navController, "write", setStartDestination)},
+                { navigateTo(navController, "settings", setStartDestination)},
             )
         }
         composable("settings") {
             SettingsScreen(
                 tokenText.value,
                 store,
-                {navController.navigate("home")},
-                {navController.navigate("write")},
-                {navController.navigate("settings")},
-                {navController.navigate("login")},
+                { navigateTo(navController, "home", setStartDestination)},
+                { navigateTo(navController, "write", setStartDestination)},
+                { navigateTo(navController, "settings", setStartDestination)},
+                { navigateTo(navController, "login", setStartDestination)},
             )
         }
     }
+}
+
+fun navigateTo(navCtl: NavHostController, route: String, setStart: (String) -> Unit) {
+    setStart(route);
+    navCtl.navigate(route);
 }
